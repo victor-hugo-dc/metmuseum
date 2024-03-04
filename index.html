@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Gallery SPA</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center my-4">The Metropolitan Museum of Art</h1>
+        <form id="search-form" class="mb-4">
+            <div class="input-group">
+                <input type="text" id="search-input" class="form-control" placeholder="Search for artists...">
+                <div class="input-group-append">
+                    <button id="search-button" class="btn btn-primary" type="button">Search</button>
+                </div>
+            </div>
+        </form>
+        <div id="artworks-grid" class="row"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="custom-modal" id="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
+
