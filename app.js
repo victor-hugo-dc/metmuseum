@@ -6,39 +6,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('modal');
     const modalBody = document.getElementById('modal-body');
 
-    function fetchArtworks(query) {
-        return fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${query}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const limitedObjectIDs = data.objectIDs.slice(0, 30);
-                return limitedObjectIDs;
-            })
-            .catch(error => {
-                console.error(error);
-                throw error;
-            });
+    async function fetchArtworks(query) {
+        const response = await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${query}`);
+        const data = await response.json();
+        const limitedObjectIDs = data.objectIDs.slice(0, 30);
+        return limitedObjectIDs;
     }
 
-    function fetchArtworkDetails(objectID) {
-        return fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .catch(error => {
-                console.error(error);
-                throw error;
-            });
+    async function fetchArtworkDetails(objectID) {
+        const response = await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`);
+        const data = await response.json();
+        return data;
     }
 
-    function addCard(artworkDetails) {
+    function addCard(artworkDetails, objectID) {
         const artworkImage = artworkDetails.primaryImageSmall;
         const artworkTitle = artworkDetails.title;
 
@@ -61,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         objectIDs.forEach(async objectID => {
             const artworkDetails = await fetchArtworkDetails(objectID);
             if (artworkDetails.primaryImageSmall) {
-                addCard(artworkDetails);
+                addCard(artworkDetails, objectID);
             }
         });
     }
