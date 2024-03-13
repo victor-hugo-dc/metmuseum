@@ -38,17 +38,12 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    async function displayArtworks(query) {
-        const objectIDs = await fetchArtworks(query);
-        artworksGrid.innerHTML = '';
-        objectIDs.forEach(async objectID => {
-            const artworkDetails = await fetchArtworkDetails(objectID);
-            if (artworkDetails.primaryImageSmall) {
-                const artworkImage = artworkDetails.primaryImageSmall;
-                const artworkTitle = artworkDetails.title;
+    function addCard(artworkDetails) {
+        const artworkImage = artworkDetails.primaryImageSmall;
+        const artworkTitle = artworkDetails.title;
 
-                const artworkElement = document.createElement('div');
-                artworkElement.innerHTML = `
+        const artworkElement = document.createElement('div');
+        artworkElement.innerHTML = `
                 <div class="card">
                     <img src="${artworkImage}" class="card-img-top" alt="${artworkTitle}">
                     <div class="card-body">
@@ -57,7 +52,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                 </div>
             `;
-                artworksGrid.appendChild(artworkElement);
+        artworksGrid.appendChild(artworkElement);
+    }
+
+    async function displayArtworks(query) {
+        const objectIDs = await fetchArtworks(query);
+        artworksGrid.innerHTML = '';
+        objectIDs.forEach(async objectID => {
+            const artworkDetails = await fetchArtworkDetails(objectID);
+            if (artworkDetails.primaryImageSmall) {
+                addCard(artworkDetails);
             }
         });
     }
