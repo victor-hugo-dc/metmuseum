@@ -6,9 +6,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('modal');
     const modalBody = document.getElementById('modal-body');
 
+    async function fetchInitialArtworks() {
+        const response = await fetch('http://localhost:4000/artworks');
+        const data = await response.json();
+        return data;
+    }
+
     async function fetchArtworks(query) {
         const response = await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${query}`);
         const data = await response.json();
+        console.log(data)
         const limitedObjectIDs = data.objectIDs.slice(0, 30);
         return limitedObjectIDs;
     }
@@ -16,12 +23,14 @@ document.addEventListener('DOMContentLoaded', function () {
     async function fetchArtworkDetails(objectID) {
         const response = await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`);
         const data = await response.json();
+        console.log(data)
         return data;
     }
-
-    function addCard(artworkDetails, objectID) {
-        const artworkImage = artworkDetails.primaryImageSmall;
-        const artworkTitle = artworkDetails.title;
+    
+    function addCard(artwork) {
+        const artworkImage = artwork.primaryImageSmall;
+        const artworkTitle = artwork.title;
+        const objectID = artwork.objectID;
 
         const artworkElement = document.createElement('div');
         artworkElement.innerHTML = `
@@ -34,6 +43,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
             `;
         artworksGrid.appendChild(artworkElement);
+    }
+
+    async function displayInitialArtworks() {
+        const artworks = await fetchInitialArtworks();
+        artworks.forEach(artwork => {
+            addCard(artwork);
+        });
     }
 
     async function displayArtworks(query) {
@@ -91,4 +107,6 @@ document.addEventListener('DOMContentLoaded', function () {
             displayModal(objectID);
         }
     });
+
+    displayInitialArtworks();
 });
