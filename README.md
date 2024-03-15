@@ -16,15 +16,17 @@ This is a single-page application (SPA) that allows users to search for artworks
 
 ## Installation
 
-No installation required. Simply open the `index.html` file in a web browser.
+Ensure you have JSON Server installed globally. If not, you can install it via npm: `npm install -g json-server`
 
 ## Usage
 
-1. Clone the project using `git clone https://github.com/victor-hugo-dc/metmuseum.git`.
-2. Open the `index.html` file in your web browser.
-3. Use the search bar to search for artists or artworks.
-4. Click on an artwork to view its details.
-5. Close the modal by clicking on the close button.
+1. Clone the project repository: `git clone https://github.com/victor-hugo-dc/metmuseum.git`.
+1. Navigate to the project directory in your terminal.
+1. Start the JSON server by running the following command: `json-server --watch db.json --port 4000`
+1. Open the `index.html` file in your preferred web browser.
+1. Utilize the search bar to look up artists or artworks.
+1. Click on an artwork to delve into its details.
+1. Close the modal by clicking on the close button.
 
 ## Development
 
